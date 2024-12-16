@@ -1,0 +1,82 @@
+<html>
+  <head>
+    <title>Blog view</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  </head>
+  <body>
+    <h1>Stigl's blog</h1>
+    <hr>
+  </body>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+    .open-sans {
+        font-family: "Open Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 200;
+        font-style: normal;
+    }
+    
+    body {
+        font-family: "Open Sans", Times, serif;
+        background-color: lightblue;
+    }
+    
+    div {
+        display:inline-block;
+        width: 250px;
+        height: 250px;
+        border-style: solid;
+        margin: 1%;
+    }
+    
+    p {
+        height: 95%;
+        margin: 5%;
+        text-overflow: clip;
+        overflow: hidden;
+        white-space: pre-line;
+    }
+
+    a {
+        margin: 5%;
+        color: blue;
+        text-decoration: none;
+        float: right;
+    }
+  </style>
+  <script>
+    GetAllBlogs();
+    function FullScreen(x) {
+        var element = document.getElementById(x);
+        if(element.style.height == '100%') {
+            element.removeAttribute('style');
+            element.firstChild.removeAttribute('style');
+        } else {
+            //element.style.overflow = 'auto';
+            element.firstChild.style.margin = '0';
+            element.style.width = '97%';
+            element.style.height = '100%';
+        }
+    }
+    function SpawnBlog(x, i, y) {
+        fetch(window.location.href + x)
+            .then(x => x.text())
+            .then(z => document.body.insertAdjacentHTML('beforeend', '<div onclick="FullScreen(\''+x+'\')" id="'+x+'"><a href="'
+                                                        + window.location.href + x+'">File</a><p>'
+                                                        + z.replace('<', '')+ '</p></div>'));
+    }
+    function SpawnAllBlogs(x) {
+        x
+            .split('\n')
+            .forEach(SpawnBlog);
+    }
+    
+    function GetAllBlogs() {
+        let url = window.location.href + 'all';
+        fetch(url)
+            .then(x => x.text())
+            .then(x => SpawnAllBlogs(x));
+    }
+  </script>
+    
+</html>
