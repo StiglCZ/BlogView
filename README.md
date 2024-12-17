@@ -23,5 +23,3 @@ You can simply edit the blog.conf like any other .conf file. In the file, you ca
 `RootDirectory` - Parent directory of `BlogDirectory`<br>
 `BlogDirectory` - Directory where all your blogs are located<br>
 `FileExtension` - File extension of all your blogs. If empty, missing extension will result in 404 error<br>
-
-
