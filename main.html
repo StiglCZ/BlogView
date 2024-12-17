@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
   </head>
   <body>
-    <h1>Stigl's blog</h1>
+    <h1>Stigls blog</h1>
     <hr>
   </body>
   <style>
@@ -46,29 +46,36 @@
   </style>
   <script>
     GetAllBlogs();
+
     function FullScreen(x) {
         var element = document.getElementById(x);
-        if(element.style.height == '100%') {
+        if(element.style.height == 'auto') {
             element.removeAttribute('style');
-            element.firstChild.removeAttribute('style');
+            element.childNodes[0].removeAttribute('style');
+            element.childNodes[1].removeAttribute('style');
         } else {
-            //element.style.overflow = 'auto';
-            element.firstChild.style.margin = '0';
+            element.childNodes[0].style.margin = '1%';
+            element.childNodes[1].style.margin = '1%';
+            element.childNodes[1].style.height = 'auto';
+            element.style.height = 'auto';
             element.style.width = '97%';
-            element.style.height = '100%';
         }
     }
-    function SpawnBlog(x, i, y) {
+    function SpawnBlog(x) {
         fetch(window.location.href + x)
             .then(x => x.text())
-            .then(z => document.body.insertAdjacentHTML('beforeend', '<div onclick="FullScreen(\''+x+'\')" id="'+x+'"><a href="'
-                                                        + window.location.href + x+'">File</a><p>'
-                                                        + z.replace('<', '')+ '</p></div>'));
+            .then(function(z) {
+                document.body.insertAdjacentHTML('beforeend', '<div onclick="FullScreen(\''+ x +'\');" id="'+ x +'"></div>');
+                var element = document.getElementById(x);
+                element.insertAdjacentHTML('beforeend', '<a href="' +window.location.href + x +'">File</a>');
+                element.insertAdjacentHTML('beforeend', '<p>' + z.replace('<', '') + '</p></div>');
+            });
     }
-    function SpawnAllBlogs(x) {
-        x
-            .split('\n')
-            .forEach(SpawnBlog);
+    async function SpawnAllBlogs(x) {
+        let array = x.split('\n');
+        for(const item of array) {
+            await SpawnBlog(item);
+        }
     }
     
     function GetAllBlogs() {
