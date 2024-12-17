@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
   </head>
   <body>
-    <h1>Stigls blog</h1>
+    <h1>#title</h1>
     <hr>
   </body>
   <style>
@@ -18,7 +18,7 @@
     
     body {
         font-family: "Open Sans", Times, serif;
-        background-color: lightblue;
+        background-color: #color;
     }
     
     div {
@@ -30,7 +30,7 @@
     }
     
     p {
-        height: 95%;
+        height: 90%;
         margin: 5%;
         text-overflow: clip;
         overflow: hidden;
@@ -61,19 +61,20 @@
             element.style.width = '97%';
         }
     }
-    function SpawnBlog(x) {
-        fetch(window.location.href + x)
+    async function SpawnBlog(x) {
+        await fetch(window.location.href + x)
             .then(x => x.text())
             .then(function(z) {
                 document.body.insertAdjacentHTML('beforeend', '<div onclick="FullScreen(\''+ x +'\');" id="'+ x +'"></div>');
                 var element = document.getElementById(x);
-                element.insertAdjacentHTML('beforeend', '<a href="' +window.location.href + x +'">File</a>');
+                element.insertAdjacentHTML('beforeend', '<a href="' +window.location.href + x +'">Raw</a>');
                 element.insertAdjacentHTML('beforeend', '<p>' + z.replace('<', '') + '</p></div>');
             });
     }
     async function SpawnAllBlogs(x) {
         let array = x.split('\n');
         for(const item of array) {
+            console.log(item);
             await SpawnBlog(item);
         }
     }
