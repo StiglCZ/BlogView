@@ -10,7 +10,7 @@ Like any other dotnet package. Run in the same directory as the .conf and .html 
 
 Uploading Posts
 -----------------
-Simply upload to the `RootDirectory/blogs`, or whatever you have set in your config file. The posts will automatically appear on the website next time you refresh(in case they don't, make sure the website is not cached by the browser)<br>
+Simply upload a file with an ftp or similiar service to the `RootDirectory/blogs`, or whatever you have set in your config file. The posts will automatically appear on the website next time you refresh(in case they don't, make sure the website is not cached by the browser)<br>
 
 
 Configuring
